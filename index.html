@@ -1,0 +1,473 @@
+<html>
+<head><title>Upvote Bots</title>
+<h1>Steem Chain Upvote Bot Analysis</h1>
+<p></p>
+<input id="Start" type="button" value=" Start Analysis " onClick=search()>
+      by : FireDream
+
+<p id="data"></p>
+<style>
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 10;
+   width: 100%;
+   background-color: red;
+   color: white;
+   text-align: center;
+}
+</style>
+
+</head>
+<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+<script language="JavaScript">
+
+
+
+
+function search()
+{
+
+var startTime, thisTime;
+var transact=0
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- These variables are initialized so that when bot name change all reset -->
+
+startTime=new Date();
+thisTime=new Date();
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Define the table -->
+	var bottable = document.getElementById('bottable');
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Get names of the bots from textbox and put them in table -->
+
+var botNo1=document.getElementById('bot1').value;
+var botNo2=document.getElementById('bot2').value;
+var botNo3=document.getElementById('bot3').value;
+var botNo4=document.getElementById('bot4').value;
+var botNo5=document.getElementById('bot5').value;
+var botNo6=document.getElementById('bot6').value;
+var botNo7=document.getElementById('bot7').value;
+
+
+bottable.rows[0].cells[1].innerHTML =botNo1 ;
+bottable.rows[0].cells[2].innerHTML =botNo2 ;
+bottable.rows[0].cells[3].innerHTML =botNo3 ;
+bottable.rows[0].cells[4].innerHTML =botNo4 ;
+bottable.rows[0].cells[5].innerHTML =botNo5 ;
+bottable.rows[0].cells[6].innerHTML =botNo6 ;
+bottable.rows[0].cells[7].innerHTML =botNo7 ;
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Variables to count how many individual transaction is made with each bot -->	
+	
+	var botTR1=0;
+	var botTR2=0;
+	var botTR3=0;
+	var botTR4=0;
+	var botTR5=0;
+	var botTR6=0;
+	var botTR7=0; 
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Variables to count the coins ( SBD and STEEM form ) received by BOTS -->	
+	
+	var botMON1=0;
+	var botMON2=0;
+	var botMON3=0;
+	var botMON4=0;
+	var botMON5=0;
+	var botMON6=0;
+	var botMON7=0; 
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Variables to count SBD transferred to BOTS -->	
+	
+	var botSBD1=0;
+	var botSBD2=0;
+	var botSBD3=0;
+	var botSBD4=0;
+	var botSBD5=0;
+	var botSBD6=0;
+	var botSBD7=0; 
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Variables to count STEEM transferred to BOTS-->	
+	
+	var botSTEEM1=0;
+	var botSTEEM2=0;
+	var botSTEEM3=0;
+	var botSTEEM4=0;
+	var botSTEEM5=0;
+	var botSTEEM6=0;
+	var botSTEEM7=0; 
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<!-- Variables to calculate total coins transferred to BOTS-->	
+	
+	var botTOT1=0;
+	var botTOT2=0;
+	var botTOT3=0;
+	var botTOT4=0;
+	var botTOT5=0;
+	var botTOT6=0;
+	var botTOT7=0; 
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Main function to get data from blockchain -->
+
+
+  var release = steem.api.streamTransactions('head', function(err, result) 
+{
+<!-- ---------------------------------------------------------------------------------- -->
+
+ 
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Check the transfer operations and write the results -->
+
+if(result.operations["0"]["0"]=='transfer')
+	{
+    	thisTime=new Date();
+	var money=result.operations["0"][1].amount;
+	transact=transact+1;
+	
+	document.getElementById("cons").innerHTML=' From: '+result.operations["0"][1].from+' To: '+result.operations["0"][1].to+' Amount: '+result.operations["0"][1].amount;
+	document.getElementById("conshtm").innerHTML=result.operations["0"][1].memo;
+	document.getElementById("conshtm").href=result.operations["0"][1].memo;
+	document.getElementById("conshtm").target="_blank";
+	document.getElementById("timeElapsed").innerHTML='Analysis time=  '+Math.round((thisTime-startTime)/1000)+' seconds ';
+<!-- ---------------------------------------------------------------------------------- -->
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Total quantity of transactions. To analyse how many transaction is made in certain time.  -->
+
+	for (i = 1; i < 8; i++) { 
+    		bottable.rows[1].cells[i].innerHTML =transact;
+		}
+<!-- ---------------------------------------------------------------------------------- -->	
+
+
+<!-- ---------------------------------------------------------------------------------- -->
+<!-- Check the transfer to the bots and write the data to table -->
+
+		if (result.operations["0"][1].to==botNo1)
+		{
+		botTR1=botTR1+1;
+		bottable.rows[2].cells[1].innerHTML =botTR1;
+		botMON1=money.split(" ");
+			if (botMON1[1]=="SBD")
+			{
+				botSBD1=botSBD1+parseFloat(botMON1);
+				
+				bottable.rows[3].cells[1].innerHTML =botSBD1;
+				
+			}
+			
+			if (botMON1[1]=="STEEM")
+			{
+				botSTEEM1=botSTEEM1+parseFloat(botMON1);
+				
+				bottable.rows[4].cells[1].innerHTML =botSBD1;
+				
+			}
+		botTOT1=botSBD1+botSTEEM1/3;
+		bottable.rows[5].cells[1].innerHTML =botTOT1;	
+
+		}
+
+
+		if (result.operations["0"][1].to==botNo2)
+		{
+		botTR2=botTR2+1;
+		bottable.rows[2].cells[2].innerHTML =botTR2;
+		botMON2=money.split(" ");
+			if (botMON2[1]=="SBD")
+			{
+				botSBD2=botSBD2+parseFloat(botMON2);
+				
+				bottable.rows[3].cells[2].innerHTML =botSBD2;
+				
+			}
+			
+			if (botMON2[1]=="STEEM")
+			{
+				botSTEEM2=botSTEEM2+parseFloat(botMON2);
+				
+				bottable.rows[4].cells[2].innerHTML =botSBD2;
+				
+			}
+		botTOT2=botSBD2+botSTEEM2/3;
+		bottable.rows[5].cells[2].innerHTML =botTOT2;	
+
+		}
+
+
+		if (result.operations["0"][1].to==botNo3)
+		{
+		botTR3=botTR3+1;
+		bottable.rows[2].cells[3].innerHTML =botTR3;
+		botMON3=money.split(" ");
+			if (botMON3[1]=="SBD")
+			{
+				botSBD3=botSBD3+parseFloat(botMON3);
+				
+				bottable.rows[3].cells[3].innerHTML =botSBD3;
+				
+			}
+			
+			if (botMON3[1]=="STEEM")
+			{
+				botSTEEM3=botSTEEM3+parseFloat(botMON3);
+				
+				bottable.rows[4].cells[3].innerHTML =botSBD3;
+				
+			}
+		botTOT3=botSBD3+botSTEEM3/3;
+		bottable.rows[5].cells[3].innerHTML =botTOT3;	
+
+		}
+
+		if (result.operations["0"][1].to==botNo4)
+		{
+		botTR4=botTR4+1;
+		bottable.rows[2].cells[4].innerHTML =botTR4;
+		botMON4=money.split(" ");
+			if (botMON4[1]=="SBD")
+			{
+				botSBD4=botSBD4+parseFloat(botMON4);
+				
+				bottable.rows[3].cells[4].innerHTML =botSBD4;
+				
+			}
+			
+			if (botMON4[1]=="STEEM")
+			{
+				botSTEEM4=botSTEEM4+parseFloat(botMON4);
+				
+				bottable.rows[4].cells[4].innerHTML =botSBD4;
+				
+			}
+		botTOT4=botSBD4+botSTEEM4/3;
+		bottable.rows[5].cells[4].innerHTML =botTOT4;	
+
+		}
+
+		if (result.operations["0"][1].to==botNo5)
+		{
+		botTR5=botTR5+1;
+		bottable.rows[2].cells[5].innerHTML =botTR5;
+		botMON5=money.split(" ");
+			if (botMON5[1]=="SBD")
+			{
+				botSBD5=botSBD5+parseFloat(botMON5);
+				
+				bottable.rows[3].cells[5].innerHTML =botSBD5;
+				
+			}
+			
+			if (botMON5[1]=="STEEM")
+			{
+				botSTEEM5=botSTEEM5+parseFloat(botMON5);
+				
+				bottable.rows[4].cells[5].innerHTML =botSBD5;
+				
+			}
+		botTOT5=botSBD5+botSTEEM5/3;
+		bottable.rows[5].cells[5].innerHTML =botTOT5;	
+
+		}
+
+
+		if (result.operations["0"][1].to==botNo6)
+		{
+		botTR6=botTR6+1;
+		bottable.rows[2].cells[6].innerHTML =botTR6;
+		botMON6=money.split(" ");
+			if (botMON6[1]=="SBD")
+			{
+				botSBD6=botSBD6+parseFloat(botMON6);
+				
+				bottable.rows[3].cells[6].innerHTML =botSBD6;
+				
+			}
+			
+			if (botMON6[1]=="STEEM")
+			{
+				botSTEEM6=botSTEEM6+parseFloat(botMON6);
+				
+				bottable.rows[4].cells[6].innerHTML =botSBD6;
+				
+			}
+		botTOT6=botSBD6+botSTEEM6/3;
+		bottable.rows[5].cells[6].innerHTML =botTOT6;	
+
+		}
+
+		if (result.operations["0"][1].to==botNo7)
+		{
+		botTR7=botTR7+1;
+		bottable.rows[2].cells[7].innerHTML =botTR7;
+		botMON7=money.split(" ");
+			if (botMON7[1]=="SBD")
+			{
+				botSBD7=botSBD7+parseFloat(botMON7);
+				
+				bottable.rows[3].cells[7].innerHTML =botSBD7;
+				
+			}
+			
+			if (botMON7[1]=="STEEM")
+			{
+				botSTEEM7=botSTEEM7+parseFloat(botMON7);
+				
+				bottable.rows[4].cells[7].innerHTML =botSBD7;
+				
+			}
+		botTOT7=botSBD7+botSTEEM7/3;
+		bottable.rows[5].cells[7].innerHTML =botTOT7;	
+
+		}
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+
+	}	
+
+});
+
+
+
+}
+
+</script>
+<body>
+
+<div class="footer">
+<p>All Transfers in Steem Chain</p>
+<p id="timeElapsed"></p>
+  <p id="cons"></p>
+<a id="conshtm"></a>
+
+</div>
+
+</body>
+
+<table style="height: 100px; width: 770px;">
+<table id="bottable">
+<tbody>
+
+<!-- Bot names. Default. These can be changed from the textbox -->
+<tr>
+<td style="width: 203px;">Bot Name</td>
+<td style="width: 103px;">upme</td>
+<td style="width: 92px;">booster</td>
+<td style="width: 26px;">pushup</td>
+<td style="width: 88px;">buildawhale</td>
+<td style="width: 119px;">randowhale</td>
+<td style="width: 115px;">minnowhelper</td>
+<td style="width: 32px;">minnowbooster</td>
+</tr>
+
+<!-- Analysis time - They are all equal -->
+<tr>
+<td style="width: 203px;">Transactions</td>
+<td style="width: 103px;">0</td>
+<td style="width: 92px;">0</td>
+<td style="width: 26px;">0</td>
+<td style="width: 88px;">0</td>
+<td style="width: 119px;">0</td>
+<td style="width: 115px;">0</td>
+<td style="width: 32px;">0</td>
+</tr>
+<!-- How many transactions made with this bot -->
+<tr>
+<td style="width: 203px;">Qty of Transfer</td>
+<td style="width: 103px;">0</td>
+<td style="width: 92px;">0</td>
+<td style="width: 26px;">0</td>
+<td style="width: 88px;">0</td>
+<td style="width: 119px;">0</td>
+<td style="width: 115px;">0</td>
+<td style="width: 32px;">0</td>
+</tr>
+<!-- How much coin in SBD this bot received -->
+<tr>
+<td style="width: 203px;">SBD Received</td>
+<td style="width: 103px;">0</td>
+<td style="width: 92px;">0</td>
+<td style="width: 26px;">0</td>
+<td style="width: 88px;">0</td>
+<td style="width: 119px;">0</td>
+<td style="width: 115px;">0</td>
+<td style="width: 32px;">0</td>
+</tr>
+<!-- How much coin in STEEM this bot received -->
+<tr>
+<td style="width: 203px;">STEEM Received</td>
+<td style="width: 103px;">0</td>
+<td style="width: 92px;">0</td>
+<td style="width: 26px;">0</td>
+<td style="width: 88px;">0</td>
+<td style="width: 119px;">0</td>
+<td style="width: 115px;">0</td>
+<td style="width: 32px;">0</td>
+</tr>
+<!-- How much in total this bot received in SBD - Steem converted to SBD -->
+<tr>
+<td style="width: 203px;">Total Received (SBD)</td>
+<td style="width: 103px;">0</td>
+<td style="width: 92px;">0</td>
+<td style="width: 26px;">0</td>
+<td style="width: 88px;">0</td>
+<td style="width: 119px;">0</td>
+<td style="width: 115px;">0</td>
+<td style="width: 32px;">0</td>
+</tr>
+
+<!-- Bot names in the textbox.This can be changed -->
+<p></p>
+Bot1: <input type="text" id="bot1" value="upme"><br>
+<p></p>
+Bot2: <input type="text" id="bot2" value="booster"><br>
+<p></p>
+Bot3: <input type="text" id="bot3" value="pushup"><br>
+<p></p>
+Bot4: <input type="text" id="bot4" value="buildawhale"><br>
+<p></p>
+Bot5: <input type="text" id="bot5" value="randowhale"><br>
+<p></p>
+Bot6: <input type="text" id="bot6" value="minnowhelper"><br>
+<p></p>
+Bot7: <input type="text" id="bot7" value="minnowbooster"><br>
+<p></p>
+</tbody>
+</table>
+
+
+
+</html>
