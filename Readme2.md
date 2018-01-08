@@ -1,3 +1,11 @@
+## Change on 08.01.2018
+It is [announced](https://steemit.com/steemitdev/@steemitdev/update-your-steem-apps-big-changes-coming-for-3rd-party-developers) that (steemd.steemit.com) will change to (api.steemit.com).
+Since the cdn is not pushed yet additional code needed to work SteemBotCompare.
+The code change is :
+
+for Steem API calls.
+
+
 ## Real time data addition to SteemBotCompare
 webpage:https://steembotcompare.neocities.org/
 
