@@ -2,8 +2,17 @@
 It is [announced](https://steemit.com/steemitdev/@steemitdev/update-your-steem-apps-big-changes-coming-for-3rd-party-developers) that (steemd.steemit.com) will change to (api.steemit.com).
 Since the cdn is not pushed yet additional code needed to work SteemBotCompare.
 The code change is :
+![image.png](https://res.cloudinary.com/hpiynhbhq/image/upload/v1515438225/y0mwxxu13amsmbi6go2w.png)
 
 for Steem API calls.
+
+After making this change the site [SteemBotCompare](https://steembotcompare.neocities.org/) is up again.
+Recommendation to all Steem-Js developpers, change your code as follows :
+### Old Code:
+![image.png](https://res.cloudinary.com/hpiynhbhq/image/upload/v1515438426/ptlitrmaagfoyywizdqc.png)
+### New Code :
+![image.png](https://res.cloudinary.com/hpiynhbhq/image/upload/v1515438470/ckdrjkyf8hyh1gsztycw.png)
+
 
 
 ## Real time data addition to SteemBotCompare
